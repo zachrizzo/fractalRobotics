@@ -20,17 +20,21 @@ export default function Navigation() {
   const router = useRouter()
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
-      setUser(user)
-    })
+    if (auth) {
+      const unsubscribe = onAuthStateChanged(auth, (user) => {
+        setUser(user)
+      })
 
-    return () => unsubscribe()
+      return () => unsubscribe()
+    }
   }, [])
 
   const handleLogout = async () => {
     try {
-      await signOut(auth)
-      router.push("/")
+      if (auth) {
+        await signOut(auth)
+        router.push("/")
+      }
     } catch (error) {
       console.error("Error signing out: ", error)
     }

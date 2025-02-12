@@ -11,7 +11,7 @@ import StarterKit from "@tiptap/starter-kit"
 import Image from "next/image"
 import { PlusCircle, X, ArrowUp, ArrowDown, Type, ImageIcon, VideoIcon } from "lucide-react"
 
-type ContentBlock = {
+interface Block {
   id: string
   type: "text" | "image" | "video"
   content: string
@@ -20,9 +20,10 @@ type ContentBlock = {
 
 export default function AddBlogPost() {
   const [title, setTitle] = useState("")
-  const [blocks, setBlocks] = useState<ContentBlock[]>([{ id: "1", type: "text", content: "", editor: null }])
+  const [blocks, setBlocks] = useState<Block[]>([{ id: "1", type: "text", content: "", editor: null }])
   const [successMessage, setSuccessMessage] = useState("")
   const [isLoading, setIsLoading] = useState(false)
+  const [error, setError] = useState("")
   const fileInputRef = useRef<HTMLInputElement>(null)
 
   const createEditor = useCallback((content = "") => {
@@ -49,25 +50,35 @@ export default function AddBlogPost() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
+    setError("")
     setIsLoading(true)
+
+    if (!db || !storage) {
+      setError("Firebase is not initialized")
+      setIsLoading(false)
+      return
+    }
 
     try {
       const processedBlocks = await Promise.all(
         blocks.map(async (block) => {
-          if (block.type === "image" || block.type === "video") {
+          if (block.type === "text") return block
+
+          if ((block.type === "image" || block.type === "video") && storage) {
             const file = await fetch(block.content).then((r) => r.blob())
             const fileRef = ref(storage, `blog-${block.type}s/${Date.now()}-${block.id}`)
             await uploadBytes(fileRef, file)
             const url = await getDownloadURL(fileRef)
             return { ...block, content: url }
           }
+
           return block
-        }),
+        })
       )
 
       await addDoc(collection(db, "blogPosts"), {
         title,
-        blocks: processedBlocks.map(({ editor, ...block }) => block), // Remove editor before saving
+        content: processedBlocks.map((block) => block.content).join("\n"),
         createdAt: new Date().toISOString(),
       })
 
@@ -77,14 +88,14 @@ export default function AddBlogPost() {
       setTimeout(() => setSuccessMessage(""), 3000)
     } catch (error) {
       console.error("Error adding blog post: ", error)
-      alert("Failed to add blog post. Please try again.")
+      setError("Failed to add blog post. Please try again.")
     } finally {
       setIsLoading(false)
     }
   }
 
   const addBlock = (type: "text" | "image" | "video", index: number) => {
-    const newBlock: ContentBlock = {
+    const newBlock: Block = {
       id: Date.now().toString(),
       type,
       content: "",
@@ -139,6 +150,16 @@ export default function AddBlogPost() {
           exit={{ opacity: 0 }}
         >
           {successMessage}
+        </motion.p>
+      )}
+      {error && (
+        <motion.p
+          className="text-red-500 mb-4"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+        >
+          {error}
         </motion.p>
       )}
       <div className="mb-6">

@@ -1,9 +1,9 @@
 "use client"
 
 import { useState } from "react"
-import { useRouter } from "next/navigation"
 import { signInWithEmailAndPassword } from "firebase/auth"
 import { auth } from "../../lib/firebase"
+import { useRouter } from "next/navigation"
 import { motion } from "framer-motion"
 import Image from "next/image"
 import type React from "react" // Added import for React
@@ -18,30 +18,32 @@ export default function LoginPage() {
     e.preventDefault()
     setError("")
 
+    if (!auth) {
+      setError("Authentication is not initialized")
+      return
+    }
+
     try {
       await signInWithEmailAndPassword(auth, email, password)
       router.push("/blog")
     } catch (error) {
       setError("Failed to log in. Please check your credentials.")
-      console.error(error)
+      console.error("Login error:", error)
     }
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100 py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-md w-full space-y-8">
-        <motion.div initial={{ opacity: 0, y: -50 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
-          <Image src="/logo.png" alt="Fractal Robotics Logo" width={100} height={100} className="mx-auto" />
+    <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+        className="max-w-md w-full space-y-8"
+      >
+        <div>
           <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">Sign in to your account</h2>
-        </motion.div>
-        <motion.form
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.5, delay: 0.2 }}
-          className="mt-8 space-y-6"
-          onSubmit={handleSubmit}
-        >
-          <input type="hidden" name="remember" defaultValue="true" />
+        </div>
+        <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
           <div className="rounded-md shadow-sm -space-y-px">
             <div>
               <label htmlFor="email-address" className="sr-only">
@@ -77,24 +79,18 @@ export default function LoginPage() {
             </div>
           </div>
 
-          {error && (
-            <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="text-red-500 text-sm text-center">
-              {error}
-            </motion.p>
-          )}
+          {error && <div className="text-red-500 text-sm text-center">{error}</div>}
 
           <div>
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
+            <button
               type="submit"
               className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-primary-color hover:bg-secondary-color focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-color"
             >
               Sign in
-            </motion.button>
+            </button>
           </div>
-        </motion.form>
-      </div>
+        </form>
+      </motion.div>
     </div>
   )
 }

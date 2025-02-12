@@ -1,7 +1,7 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import { onAuthStateChanged, User } from "firebase/auth"
+import { User, onAuthStateChanged } from "firebase/auth"
 import { collection, query, orderBy, onSnapshot } from "firebase/firestore"
 import { auth, db } from "../../lib/firebase"
 import AddBlogPost from "../../components/AddBlogPost"
@@ -21,26 +21,40 @@ interface BlogPost {
 export default function BlogPage() {
   const [user, setUser] = useState<User | null>(null)
   const [blogPosts, setBlogPosts] = useState<BlogPost[]>([])
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    const unsubscribeAuth = onAuthStateChanged(auth, (user) => {
-      setUser(user)
-    })
+    if (auth) {
+      const unsubscribeAuth = onAuthStateChanged(auth, (user) => {
+        setUser(user)
+      })
 
-    const q = query(collection(db, "blogPosts"), orderBy("createdAt", "desc"))
-    const unsubscribePosts = onSnapshot(q, (snapshot) => {
-      const posts = snapshot.docs.map((doc) => ({
-        id: doc.id,
-        ...doc.data(),
-      })) as BlogPost[]
-      setBlogPosts(posts)
-    })
+      if (db) {
+        const q = query(collection(db, "blogPosts"), orderBy("createdAt", "desc"))
+        const unsubscribePosts = onSnapshot(q, (snapshot) => {
+          const posts = snapshot.docs.map((doc) => ({
+            id: doc.id,
+            ...doc.data(),
+          })) as BlogPost[]
+          setBlogPosts(posts)
+          setLoading(false)
+        })
 
-    return () => {
-      unsubscribeAuth()
-      unsubscribePosts()
+        return () => {
+          unsubscribeAuth()
+          unsubscribePosts()
+        }
+      }
+
+      return () => unsubscribeAuth()
+    } else {
+      setLoading(false)
     }
   }, [])
+
+  if (loading) {
+    return <div className="container mx-auto px-4 py-12 text-center">Loading...</div>
+  }
 
   return (
     <div className="container mx-auto px-4 py-12 min-h-screen">
@@ -64,7 +78,7 @@ export default function BlogPage() {
           >
             {post.imageUrl ? (
               <Image
-                src={post.imageUrl || "/placeholder.svg"}
+                src={post.imageUrl}
                 alt={post.title}
                 width={400}
                 height={200}

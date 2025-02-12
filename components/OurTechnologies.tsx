@@ -24,7 +24,12 @@ export default function OurTechnologies() {
   )
 }
 
-function TechCard({ title, description }) {
+interface TechCardProps {
+  title: string;
+  description: string;
+}
+
+function TechCard({ title, description }: TechCardProps) {
   return (
     <motion.div
       whileHover={{ scale: 1.05 }}

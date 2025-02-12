@@ -45,7 +45,13 @@ export default function LatestBlog() {
   )
 }
 
-function BlogPostCard({ title, excerpt, image }) {
+interface BlogPostCardProps {
+  title: string;
+  excerpt: string;
+  image: string;
+}
+
+function BlogPostCard({ title, excerpt, image }: BlogPostCardProps) {
   return (
     <motion.div whileHover={{ scale: 1.05 }} className="bg-white rounded-lg shadow-lg overflow-hidden">
       <Image src={image || "/placeholder.svg"} alt={title} width={400} height={200} objectFit="cover" />

@@ -46,7 +46,13 @@ export default function OurSolutions() {
   )
 }
 
-function SolutionCard({ title, description, image }) {
+interface SolutionCardProps {
+  title: string;
+  description: string;
+  image: string;
+}
+
+function SolutionCard({ title, description, image }: SolutionCardProps) {
   return (
     <motion.div
       whileHover={{ scale: 1.03 }}

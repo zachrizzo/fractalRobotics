@@ -10,6 +10,34 @@ const merchItems = [
   { id: 3, name: "Robotics Enthusiast Cap", price: 19.99, image: "/merch-cap.jpg" },
 ]
 
+interface MerchCardProps {
+  name: string;
+  price: number;
+  image: string;
+}
+
+function MerchCard({ name, price, image }: MerchCardProps) {
+  return (
+    <motion.div whileHover={{ scale: 1.05 }} className="bg-white rounded-lg shadow-lg overflow-hidden">
+      <Image
+        src={image || "/placeholder.svg"}
+        alt={name}
+        width={300}
+        height={300}
+        style={{ objectFit: "cover" }}
+        className="w-full h-[300px]"
+      />
+      <div className="p-6">
+        <h3 className="text-xl font-semibold mb-2 text-gray-800">{name}</h3>
+        <p className="text-gray-600 mb-4">${price.toFixed(2)}</p>
+        <button className="bg-blue-500 text-white px-4 py-2 rounded-full hover:bg-blue-600 transition duration-300">
+          Add to Cart
+        </button>
+      </div>
+    </motion.div>
+  )
+}
+
 export default function FeaturedMerch() {
   return (
     <section className="py-20 bg-gray-100">
@@ -30,21 +58,6 @@ export default function FeaturedMerch() {
         </div>
       </div>
     </section>
-  )
-}
-
-function MerchCard({ name, price, image }) {
-  return (
-    <motion.div whileHover={{ scale: 1.05 }} className="bg-white rounded-lg shadow-lg overflow-hidden">
-      <Image src={image || "/placeholder.svg"} alt={name} width={300} height={300} objectFit="cover" />
-      <div className="p-6">
-        <h3 className="text-xl font-semibold mb-2 text-gray-800">{name}</h3>
-        <p className="text-gray-600 mb-4">${price.toFixed(2)}</p>
-        <button className="bg-blue-500 text-white px-4 py-2 rounded-full hover:bg-blue-600 transition duration-300">
-          Add to Cart
-        </button>
-      </div>
-    </motion.div>
   )
 }
 

@@ -9,20 +9,28 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@tiptap/react": "^2.11.5",
+    "@tiptap/starter-kit": "^2.11.5",
     "@types/node": "20.2.5",
     "@types/react": "18.2.7",
     "@types/react-dom": "18.2.4",
     "autoprefixer": "10.4.14",
+    "clsx": "^2.1.1",
     "eslint": "8.41.0",
     "eslint-config-next": "13.4.4",
+    "firebase": "^10.x.x",
     "framer-motion": "^10.12.16",
+    "lucide-react": "^0.475.0",
     "next": "13.4.4",
     "postcss": "8.4.24",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "tailwind-merge": "^3.0.1",
     "tailwindcss": "3.3.2",
     "three": "^0.152.2",
     "typescript": "5.0.4"
+  },
+  "devDependencies": {
+    "@types/three": "^0.173.0"
   }
 }
-

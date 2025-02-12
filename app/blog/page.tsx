@@ -1,7 +1,7 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import { onAuthStateChanged } from "firebase/auth"
+import { onAuthStateChanged, User } from "firebase/auth"
 import { collection, query, orderBy, onSnapshot } from "firebase/firestore"
 import { auth, db } from "../../lib/firebase"
 import AddBlogPost from "../../components/AddBlogPost"
@@ -19,7 +19,7 @@ interface BlogPost {
 }
 
 export default function BlogPage() {
-  const [user, setUser] = useState(null)
+  const [user, setUser] = useState<User | null>(null)
   const [blogPosts, setBlogPosts] = useState<BlogPost[]>([])
 
   useEffect(() => {

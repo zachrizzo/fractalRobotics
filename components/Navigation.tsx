@@ -3,7 +3,7 @@
 import Link from "next/link"
 import { useState, useEffect } from "react"
 import { motion, AnimatePresence } from "framer-motion"
-import { onAuthStateChanged, signOut } from "firebase/auth"
+import { onAuthStateChanged, signOut, User } from "firebase/auth"
 import { auth } from "../lib/firebase"
 import { useRouter } from "next/navigation"
 
@@ -16,7 +16,7 @@ const navItems = [
 
 export default function Navigation() {
   const [isOpen, setIsOpen] = useState(false)
-  const [user, setUser] = useState(null)
+  const [user, setUser] = useState<User | null>(null)
   const router = useRouter()
 
   useEffect(() => {

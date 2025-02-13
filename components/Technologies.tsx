@@ -8,31 +8,60 @@ const technologies = [
   {
     title: "3D Mapping & SLAM",
     description:
-      "Using Simultaneous Localization and Mapping (SLAM) algorithms, our robots create accurate 3D maps of your home in real-time, allowing for precise navigation and interaction with the environment.",
+      "Our robot utilizes Intel RealSense D435i camera for precise 3D mapping and SLAM (Simultaneous Localization and Mapping). This enables real-time environment mapping with depth sensing accuracy up to 10 meters, perfect for indoor navigation and spatial awareness.",
+    technicalDetails: [
+      "Depth sensing range: 0.2 to 10 meters",
+      "Field of View (FoV): 87° × 58°",
+      "Depth resolution: Up to 1280 × 720 pixels",
+      "Frame rate: 90 FPS for depth streams",
+      "Real-time point cloud generation",
+    ],
     image: "/slam-mapping.jpg",
   },
   {
-    title: "Advanced Image Recognition",
+    title: "RayLib Visualization",
     description:
-      "Our custom-trained neural networks enable our robots to recognize and categorize objects, faces, and even emotions, allowing for more natural and context-aware interactions.",
-    image: "/image-recognition.jpg",
+      "Leveraging RayLib's powerful 3D rendering capabilities, we provide real-time visualization of the robot's environment, mapping data, and navigation paths. This allows for intuitive monitoring and interaction with the robot's perception system.",
+    technicalDetails: [
+      "Real-time 3D rendering at 60+ FPS",
+      "OpenGL-based graphics pipeline",
+      "Custom shaders for point cloud visualization",
+      "Interactive camera controls",
+      "Live data streaming and visualization",
+    ],
+    image: "/raylib-viz.jpg",
   },
   {
-    title: "Natural Language Processing",
+    title: "LMS Distance Measurement",
     description:
-      "Sophisticated NLP models allow our robots to understand and respond to complex voice commands, making human-robot interaction as natural as talking to a person.",
-    image: "/nlp.jpg",
+      "Our advanced Laser Measurement System (LMS) provides precise distance measurements to objects in real-time. Combined with our object detection system, this enables accurate spatial awareness and safe navigation in dynamic environments.",
+    technicalDetails: [
+      "Measurement accuracy: ±2mm",
+      "Scanning angle: 270°",
+      "Angular resolution: 0.25°/0.5°",
+      "Scanning frequency: 25/50 Hz",
+      "Protection class: IP65",
+    ],
+    image: "/lms-system.jpg",
   },
   {
-    title: "Adaptive Learning",
+    title: "Object Detection & Recognition",
     description:
-      "Our robots use reinforcement learning techniques to continuously improve their performance, adapting to your home's unique layout and your personal preferences over time.",
-    image: "/adaptive-learning.jpg",
+      "Using state-of-the-art computer vision algorithms and the Intel RealSense D435i's high-resolution RGB camera, our robot can detect, classify, and track objects in real-time, enabling intelligent interaction with its environment.",
+    technicalDetails: [
+      "RGB resolution: 1920 × 1080 at 30 FPS",
+      "Object detection latency: <50ms",
+      "Support for 80+ object classes",
+      "Real-time object tracking",
+      "Distance estimation accuracy: ±1cm",
+    ],
+    image: "/object-detection.jpg",
   },
 ]
 
 export default function Technologies() {
   const [activeIndex, setActiveIndex] = useState(0)
+  const [showTechnicalDetails, setShowTechnicalDetails] = useState(false)
 
   return (
     <section id="technologies" className="py-20 bg-gray-100">
@@ -52,14 +81,24 @@ export default function Technologies() {
             transition={{ duration: 0.8 }}
             className="lg:w-1/2"
           >
-            <Image
-              src={technologies[activeIndex].image || "/placeholder.svg"}
-              alt={technologies[activeIndex].title}
-              width={600}
-              height={400}
-              objectFit="cover"
-              className="rounded-lg shadow-lg"
-            />
+            <div className="relative">
+              <Image
+                src={technologies[activeIndex].image || "/placeholder.svg"}
+                alt={technologies[activeIndex].title}
+                width={600}
+                height={400}
+                objectFit="cover"
+                className="rounded-lg shadow-lg"
+              />
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                onClick={() => setShowTechnicalDetails(!showTechnicalDetails)}
+                className="absolute bottom-4 right-4 bg-blue-500 text-white px-4 py-2 rounded-full shadow-lg"
+              >
+                {showTechnicalDetails ? "Hide Details" : "Show Technical Specs"}
+              </motion.button>
+            </div>
           </motion.div>
           <div className="lg:w-1/2">
             <motion.div
@@ -71,22 +110,43 @@ export default function Technologies() {
               {technologies.map((tech, index) => (
                 <motion.div
                   key={index}
-                  className={`p-6 rounded-lg cursor-pointer transition-all duration-300 ${
-                    activeIndex === index ? "bg-white shadow-lg" : "hover:bg-white hover:shadow-md"
-                  }`}
+                  className={`p-6 rounded-lg cursor-pointer transition-all duration-300 ${activeIndex === index ? "bg-white shadow-lg" : "hover:bg-white hover:shadow-md"
+                    }`}
                   onClick={() => setActiveIndex(index)}
                   whileHover={{ scale: 1.03 }}
                 >
                   <h3 className="text-2xl font-semibold mb-4 text-gray-800">{tech.title}</h3>
                   {activeIndex === index && (
-                    <motion.p
+                    <motion.div
                       initial={{ opacity: 0, y: 20 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ duration: 0.5 }}
-                      className="text-gray-600"
                     >
-                      {tech.description}
-                    </motion.p>
+                      <p className="text-gray-600 mb-4">{tech.description}</p>
+                      {showTechnicalDetails && (
+                        <motion.div
+                          initial={{ opacity: 0, height: 0 }}
+                          animate={{ opacity: 1, height: "auto" }}
+                          transition={{ duration: 0.3 }}
+                          className="mt-4 bg-gray-50 p-4 rounded-lg"
+                        >
+                          <h4 className="text-lg font-semibold mb-2 text-blue-600">Technical Specifications:</h4>
+                          <ul className="list-disc list-inside space-y-2">
+                            {tech.technicalDetails.map((detail, i) => (
+                              <motion.li
+                                key={i}
+                                initial={{ opacity: 0, x: -20 }}
+                                animate={{ opacity: 1, x: 0 }}
+                                transition={{ delay: i * 0.1 }}
+                                className="text-gray-700"
+                              >
+                                {detail}
+                              </motion.li>
+                            ))}
+                          </ul>
+                        </motion.div>
+                      )}
+                    </motion.div>
                   )}
                 </motion.div>
               ))}

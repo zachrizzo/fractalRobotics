@@ -3,9 +3,7 @@ import { Inter } from "next/font/google"
 import Navigation from "@/components/Navigation"
 import Footer from "@/components/Footer"
 import type React from "react"
-import { trackVisitor } from "@/lib/visitorTracking"
-import { usePathname } from "next/navigation"
-import { useEffect } from "react"
+import TrackingProvider from "@/components/TrackingProvider"
 
 const inter = Inter({
   subsets: ['latin'],
@@ -19,16 +17,6 @@ export const metadata = {
   description: "Revolutionizing your home with intelligent automation solutions",
 }
 
-function TrackingProvider({ children }: { children: React.ReactNode }) {
-  const pathname = usePathname();
-
-  useEffect(() => {
-    trackVisitor(pathname);
-  }, [pathname]);
-
-  return <>{children}</>;
-}
-
 export default function RootLayout({
   children,
 }: {
@@ -37,11 +25,11 @@ export default function RootLayout({
   return (
     <html lang="en" className={inter.className}>
       <body>
-        <TrackingProvider>
-          <Navigation />
-          <main className="min-h-screen flex flex-col">{children}</main>
-          <Footer />
-        </TrackingProvider>
+        <Navigation />
+        <main className="min-h-screen flex flex-col">
+          <TrackingProvider>{children}</TrackingProvider>
+        </main>
+        <Footer />
       </body>
     </html>
   )

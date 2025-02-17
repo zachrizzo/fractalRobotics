@@ -1,8 +1,11 @@
 "use client"
 
 import { motion } from "framer-motion"
-import Image from "next/image"
 import { useState } from "react"
+import dynamic from "next/dynamic"
+
+// Dynamically import the RobotDog component with no SSR
+const RobotDog = dynamic(() => import("./3d-visualizations/RobotDog"), { ssr: false })
 
 const technologies = [
   {
@@ -16,7 +19,7 @@ const technologies = [
       "Frame rate: 90 FPS for depth streams",
       "Real-time point cloud generation",
     ],
-    image: "/slam-mapping.jpg",
+    visualization: "robotDog"  // New property to indicate which visualization to use
   },
   {
     title: "RayLib Visualization",
@@ -63,6 +66,16 @@ export default function Technologies() {
   const [activeIndex, setActiveIndex] = useState(0)
   const [showTechnicalDetails, setShowTechnicalDetails] = useState(false)
 
+  // Helper function to render the appropriate visualization
+  const renderVisualization = (type: string) => {
+    switch (type) {
+      case "robotDog":
+        return <RobotDog />
+      default:
+        return null
+    }
+  }
+
   return (
     <section id="technologies" className="py-20 bg-gray-100">
       <div className="container mx-auto px-4">
@@ -81,20 +94,13 @@ export default function Technologies() {
             transition={{ duration: 0.8 }}
             className="lg:w-1/2"
           >
-            <div className="relative">
-              <Image
-                src={technologies[activeIndex].image || "/placeholder.svg"}
-                alt={technologies[activeIndex].title}
-                width={600}
-                height={400}
-                objectFit="cover"
-                className="rounded-lg shadow-lg"
-              />
+            <div className="relative aspect-[4/3] w-full">
+              {renderVisualization(technologies[activeIndex].visualization || 'default')}
               <motion.button
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 onClick={() => setShowTechnicalDetails(!showTechnicalDetails)}
-                className="absolute bottom-4 right-4 bg-blue-500 text-white px-4 py-2 rounded-full shadow-lg"
+                className="absolute bottom-4 right-4 bg-blue-500 text-white px-4 py-2 rounded-full shadow-lg z-10"
               >
                 {showTechnicalDetails ? "Hide Details" : "Show Technical Specs"}
               </motion.button>
@@ -130,7 +136,9 @@ export default function Technologies() {
                           transition={{ duration: 0.3 }}
                           className="mt-4 bg-gray-50 p-4 rounded-lg"
                         >
-                          <h4 className="text-lg font-semibold mb-2 text-blue-600">Technical Specifications:</h4>
+                          <h4 className="text-lg font-semibold mb-2 text-blue-600">
+                            Technical Specifications:
+                          </h4>
                           <ul className="list-disc list-inside space-y-2">
                             {tech.technicalDetails.map((detail, i) => (
                               <motion.li

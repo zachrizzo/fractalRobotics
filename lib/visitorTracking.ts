@@ -28,6 +28,8 @@ export const trackVisitor = async (path: string) => {
       path: path,
     };
 
+    console.log("visitorData", visitorData);
+
     await addDoc(collection(db, "visitors"), visitorData);
   } catch (error) {
     console.error("Error tracking visitor:", error);

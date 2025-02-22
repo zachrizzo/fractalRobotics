@@ -39,11 +39,11 @@ export default function AboutUs() {
           >
             <p className="text-xl">
               At Fractal Robotics, we're pioneering the future of home robotics. Our team, led by Zach Rizzo (Software
-              Engineer), Collin Hertzer (Mechanical Engineer), and Raj (AI Specialist), combines expertise in
-              cutting-edge AI, computer vision, and advanced robotics to create truly intelligent home assistants.
+              Engineer), Collin Hertzer (Mechanical Engineer), combines expertise in
+              cutting-edge AI, computer vision, and advanced robotics to create truly intelligent assistants.
             </p>
             <p className="text-xl">
-              We're leveraging state-of-the-art technologies like the Intel RealSense D435i camera for precise 3D
+              We're leveraging state-of-the-art technologies like RL trainning  for precise 3D
               mapping and depth sensing. This allows our robots to navigate complex home environments with unprecedented
               accuracy.
             </p>

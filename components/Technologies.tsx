@@ -113,11 +113,11 @@ export default function Technologies() {
   const renderVisualization = (type: string) => {
     switch (type) {
       case "robotDog":
-        return <RobotDog />
+        return <TrainingRobotics />
       case "trainingRobotics":
         return <TrainingRobotics />
       default:
-        return null
+        return <TrainingRobotics />
     }
   }
 

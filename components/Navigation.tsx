@@ -11,9 +11,9 @@ const Navigation = () => {
   const menuItems = [
     { label: "Home", href: "/" },
     { label: "About", href: "/about" },
-    { label: "Solutions", href: "/solutions" },
+    // { label: "Solutions", href: "/solutions" },
     { label: "Blog", href: "/blog" },
-    { label: "Contact", href: "/contact" },
+    { label: "Contact", href: "/#contact" },
   ]
 
   return (

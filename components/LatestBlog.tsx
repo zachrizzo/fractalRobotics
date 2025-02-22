@@ -5,7 +5,7 @@ import { motion } from "framer-motion"
 import Image from "next/image"
 import Link from "next/link"
 import { useEffect, useState } from "react"
-import { getLatestBlogPosts, type BlogPost } from "../utils/firebase"
+import { getLatestBlogPosts, type BlogPost } from "@/lib/firebase"
 
 export default function LatestBlog() {
   const [blogPosts, setBlogPosts] = useState<BlogPost[]>([])

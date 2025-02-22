@@ -1,37 +1,30 @@
 'use client';
 
+import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';
-
-const recentPosts = [
-    {
-        title: "The Future of Human-Robot Collaboration",
-        excerpt: "Exploring how R1's advanced AI enables natural interaction and seamless cooperation with human workers.",
-        image: "/robotImages/r1-robot.png",
-        date: "Feb 22, 2024",
-        readTime: "5 min read",
-        category: "AI & Robotics"
-    },
-    {
-        title: "Advancing Manufacturing with Robotic Precision",
-        excerpt: "How our robotic solutions are transforming production lines and improving efficiency.",
-        image: "/robotImages/image (3).png",
-        date: "Feb 20, 2024",
-        readTime: "4 min read",
-        category: "Industry"
-    },
-    {
-        title: "R1: A New Era in Robotics",
-        excerpt: "Deep dive into the technical specifications and capabilities of our flagship robot.",
-        image: "/robotImages/r1-robot-2.png",
-        date: "Feb 18, 2024",
-        readTime: "6 min read",
-        category: "Technology"
-    }
-];
+import { getLatestBlogPosts, type BlogPost } from '../utils/firebase';
 
 export default function BlogPreview() {
+    const [posts, setPosts] = useState<BlogPost[]>([]);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        async function fetchPosts() {
+            try {
+                const fetchedPosts = await getLatestBlogPosts(3);
+                setPosts(fetchedPosts);
+            } catch (error) {
+                console.error('Error fetching blog posts:', error);
+            } finally {
+                setLoading(false);
+            }
+        }
+
+        fetchPosts();
+    }, []);
+
     return (
         <section className="py-24 bg-gradient-to-b from-gray-50 via-white to-gray-50">
             <div className="container mx-auto px-4">
@@ -52,51 +45,80 @@ export default function BlogPreview() {
                         </p>
                     </motion.div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                        {recentPosts.map((post, index) => (
-                            <motion.div
-                                key={post.title}
-                                initial={{ opacity: 0, y: 20 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{ duration: 0.8, delay: index * 0.2 }}
-                                className="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100"
-                            >
-                                <div className="relative h-48 w-full">
-                                    <Image
-                                        src={post.image}
-                                        alt={post.title}
-                                        fill
-                                        className="object-cover"
-                                    />
-                                </div>
-                                <div className="p-6">
-                                    <div className="flex items-center gap-4 mb-4">
-                                        <span className="text-sm text-blue-600 bg-blue-50 px-3 py-1 rounded-full">
-                                            {post.category}
-                                        </span>
-                                        <span className="text-sm text-gray-500">
-                                            {post.readTime}
-                                        </span>
+                    {loading ? (
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                            {[1, 2, 3].map((index) => (
+                                <motion.div
+                                    key={index}
+                                    initial={{ opacity: 0, y: 20 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    transition={{ duration: 0.8, delay: index * 0.2 }}
+                                    className="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100"
+                                >
+                                    <div className="animate-pulse">
+                                        <div className="h-48 bg-gray-200 w-full"></div>
+                                        <div className="p-6">
+                                            <div className="flex items-center gap-4 mb-4">
+                                                <div className="h-6 w-24 bg-gray-200 rounded-full"></div>
+                                                <div className="h-6 w-20 bg-gray-200 rounded"></div>
+                                            </div>
+                                            <div className="h-8 bg-gray-200 rounded w-3/4 mb-3"></div>
+                                            <div className="h-4 bg-gray-200 rounded w-full mb-2"></div>
+                                            <div className="h-4 bg-gray-200 rounded w-2/3"></div>
+                                        </div>
                                     </div>
-                                    <h3 className="text-xl font-semibold mb-3 text-gray-900">
-                                        {post.title}
-                                    </h3>
-                                    <p className="text-gray-600 mb-4 line-clamp-2">
-                                        {post.excerpt}
-                                    </p>
-                                    <div className="flex items-center justify-between">
-                                        <span className="text-sm text-gray-500">{post.date}</span>
-                                        <Link
-                                            href="/blog"
-                                            className="text-blue-600 hover:text-blue-700 font-medium transition-colors duration-200"
-                                        >
-                                            Read More →
-                                        </Link>
+                                </motion.div>
+                            ))}
+                        </div>
+                    ) : (
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                            {posts.map((post, index) => (
+                                <motion.div
+                                    key={post.id}
+                                    initial={{ opacity: 0, y: 20 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    transition={{ duration: 0.8, delay: index * 0.2 }}
+                                    className="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100"
+                                >
+                                    <div className="relative h-48 w-full">
+                                        <Image
+                                            src={post.imageUrl || "/placeholder.svg"}
+                                            alt={post.title}
+                                            fill
+                                            className="object-cover"
+                                        />
                                     </div>
-                                </div>
-                            </motion.div>
-                        ))}
-                    </div>
+                                    <div className="p-6">
+                                        <div className="flex items-center gap-4 mb-4">
+                                            <span className="text-sm text-blue-600 bg-blue-50 px-3 py-1 rounded-full">
+                                                {post.category}
+                                            </span>
+                                            <span className="text-sm text-gray-500">
+                                                {post.readTime}
+                                            </span>
+                                        </div>
+                                        <h3 className="text-xl font-semibold mb-3 text-gray-900">
+                                            {post.title}
+                                        </h3>
+                                        <p className="text-gray-600 mb-4 line-clamp-2">
+                                            {post.excerpt}
+                                        </p>
+                                        <div className="flex items-center justify-between">
+                                            <span className="text-sm text-gray-500">
+                                                {new Date(post.createdAt).toLocaleDateString()}
+                                            </span>
+                                            <Link
+                                                href={`/blog/${post.id}`}
+                                                className="text-blue-600 hover:text-blue-700 font-medium transition-colors duration-200"
+                                            >
+                                                Read More →
+                                            </Link>
+                                        </div>
+                                    </div>
+                                </motion.div>
+                            ))}
+                        </div>
+                    )}
 
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}

@@ -1,6 +1,9 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
+  images: {
+    domains: ['storage.googleapis.com'],
+  },
   webpack: (config, { isServer }) => {
     config.externals = [...config.externals, { canvas: "canvas" }]
     if (!isServer) {

@@ -1,23 +1,10 @@
 "use client"
 
 import React, { useEffect, useState } from 'react';
-import { collection, getDocs, orderBy, query } from 'firebase/firestore';
-import { db } from '../firebase';
+import { getAllBlogPosts, type BlogPost } from '@/lib/blog';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';
-
-interface BlogPost {
-  id: string;
-  title: string;
-  excerpt: string;
-  imageUrl?: string;
-  createdAt: string;
-  author: string;
-  category: string;
-  tags: string[];
-  readTime: string;
-}
 
 export default function BlogPage() {
   const [posts, setPosts] = useState<BlogPost[]>([]);
@@ -26,12 +13,7 @@ export default function BlogPage() {
   useEffect(() => {
     async function fetchPosts() {
       try {
-        const q = query(collection(db, 'blogPosts'), orderBy('createdAt', 'desc'));
-        const querySnapshot = await getDocs(q);
-        const fetchedPosts = querySnapshot.docs.map(doc => ({
-          id: doc.id,
-          ...doc.data()
-        } as BlogPost));
+        const fetchedPosts = await getAllBlogPosts();
         setPosts(fetchedPosts);
       } catch (error) {
         console.error('Error fetching blog posts:', error);

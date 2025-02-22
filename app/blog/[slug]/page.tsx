@@ -5,17 +5,7 @@ import { doc, getDoc } from 'firebase/firestore';
 import { db } from '../../firebase';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
-
-interface BlogPost {
-  title: string;
-  content: string;
-  imageUrl?: string;
-  createdAt: string;
-  author: string;
-  category: string;
-  tags: string[];
-  readTime: string;
-}
+import { type BlogPost } from '@/lib/blog';
 
 export default function BlogPost({ params }: { params: { slug: string } }) {
   const [post, setPost] = useState<BlogPost | null>(null);
@@ -29,7 +19,7 @@ export default function BlogPost({ params }: { params: { slug: string } }) {
         const docSnap = await getDoc(docRef);
 
         if (docSnap.exists()) {
-          setPost(docSnap.data() as BlogPost);
+          setPost({ id: docSnap.id, ...docSnap.data() } as BlogPost);
         } else {
           setError('Blog post not found');
         }

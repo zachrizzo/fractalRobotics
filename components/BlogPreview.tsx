@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';
-import { getLatestBlogPosts, type BlogPost } from '@/lib/firebase';
+import { getLatestBlogPosts, type BlogPost } from '@/lib/blog';
 
 export default function BlogPreview() {
     const [posts, setPosts] = useState<BlogPost[]>([]);

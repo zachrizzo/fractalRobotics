@@ -3,7 +3,7 @@ import { Inter } from "next/font/google"
 import Navigation from "@/components/Navigation"
 import Footer from "@/components/Footer"
 import type React from "react"
-import TrackingProvider from "@/components/TrackingProvider"
+import ClientLayout from "@/components/ClientLayout"
 
 const inter = Inter({
   subsets: ['latin'],
@@ -25,11 +25,13 @@ export default function RootLayout({
   return (
     <html lang="en" className={inter.className}>
       <body>
-        <Navigation />
-        <main className="min-h-screen flex flex-col">
-          <TrackingProvider>{children}</TrackingProvider>
-        </main>
-        <Footer />
+        <ClientLayout>
+          <Navigation />
+          <main className="min-h-screen flex flex-col">
+            {children}
+          </main>
+          <Footer />
+        </ClientLayout>
       </body>
     </html>
   )

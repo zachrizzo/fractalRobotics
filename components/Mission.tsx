@@ -16,17 +16,19 @@ export default function Mission() {
                             transition={{ duration: 0.8 }}
                             className="relative w-full aspect-[4/3] max-h-[600px] order-2 lg:order-1"
                         >
-                            <div className="relative w-full h-full">
+                            <div className="relative w-full h-full rounded-3xl overflow-hidden">
                                 <div className="absolute inset-0 bg-gradient-to-b from-blue-50 to-purple-50 rounded-3xl opacity-30 blur-xl" />
                                 <Image
                                     src="/robotImages/image (3).png"
                                     alt="Fractal Robotics R1 in Action"
-                                    fill
+
                                     sizes="(max-width: 768px) 100vw, 50vw"
                                     quality={100}
                                     priority
-                                    className="object-contain relative z-10"
-                                    style={{ objectFit: 'contain' }}
+                                    className="object-contain relative z-10 rounded-3xl mt-8"
+                                    style={{ objectFit: 'contain', borderRadius: '30px' }}
+                                    height={600}
+                                    width={600}
                                 />
                             </div>
                         </motion.div>

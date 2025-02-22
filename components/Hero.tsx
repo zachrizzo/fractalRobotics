@@ -2,6 +2,7 @@
 
 import Image from 'next/image';
 import { motion } from 'framer-motion';
+import Link from 'next/link';
 
 const Hero = () => {
     return (
@@ -43,9 +44,12 @@ const Hero = () => {
                             Meet R1, a robot that combines AI with a physical body. It can see, move, and help with real tasks - from picking up heavy boxes to organizing spaces. Think of it as AI that can actually reach out and lend a hand.
                         </p>
                         <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-                            <button className="px-8 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-full hover:from-blue-700 hover:to-purple-700 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5">
-                                Learn More
-                            </button>
+                            <Link
+                                href="/#contact"
+                                className="px-8 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-full hover:from-blue-700 hover:to-purple-700 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
+                            >
+                                Schedule a Demo
+                            </Link>
                             <button className="px-8 py-3 border-2 border-blue-500 text-blue-600 rounded-full hover:bg-blue-50 hover:border-blue-600 transition-all duration-300 transform hover:-translate-y-0.5">
                                 Watch Demo
                             </button>

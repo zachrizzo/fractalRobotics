@@ -1,5 +1,6 @@
 "use client"
 
+import React from 'react'
 import { motion } from "framer-motion"
 import BlogPreview from './BlogPreview'
 
@@ -9,16 +10,16 @@ export default function Roadmap() {
       <section className="py-24 bg-gradient-to-b from-gray-50 via-white to-gray-50">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center">
-          <motion.h2
+            <motion.h2
               initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8 }}
               className="text-5xl font-bold mb-8"
-          >
+            >
               <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-purple-600">
                 Our Development Roadmap
               </span>
-          </motion.h2>
+            </motion.h2>
             <motion.p
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -27,7 +28,7 @@ export default function Roadmap() {
             >
               Follow our journey as we continue to innovate and develop cutting-edge robotics solutions.
             </motion.p>
-                      </div>
+          </div>
 
           <div className="max-w-5xl mx-auto">
             <div className="relative">
@@ -37,27 +38,39 @@ export default function Roadmap() {
               {/* Timeline Items */}
               {[
                 {
-                  year: "2024 Q1",
-                  title: "R1 Beta Launch",
-                  description: "Initial release of our flagship humanoid robot with basic functionality and safety features.",
+                  year: "2025 Q1",
+                  title: "Sensor Suite Testing",
+                  description: "Comprehensive testing and validation of our advanced sensor suite for robust environmental perception.",
                   status: "Completed"
                 },
                 {
-                  year: "2024 Q2",
-                  title: "Advanced AI Integration",
-                  description: "Implementation of enhanced learning algorithms and natural interaction capabilities.",
+                  year: "2025 Q2",
+                  title: "Navigation & SLAM",
+                  description: "Validating autonomous navigation capabilities and Simultaneous Localization and Mapping (SLAM) systems.",
                   status: "In Progress"
                 },
                 {
-                  year: "2024 Q3",
-                  title: "Industry-Specific Solutions",
-                  description: "Development of specialized modules for manufacturing, healthcare, and research sectors.",
+                  year: "2025 Q3",
+                  title: "LLM & Voice Command Integration",
+                  description: "Integration of Large Language Models and text-to-speech for dynamic command interpretation and execution.",
                   status: "Planned"
                 },
                 {
-                  year: "2024 Q4",
-                  title: "Global Deployment",
-                  description: "Expansion of operations and establishment of worldwide support infrastructure.",
+                  year: "2025 Q4",
+                  title: "Object Manipulation",
+                  description: "Development of advanced object manipulation capabilities for real-world interaction and task execution.",
+                  status: "Planned"
+                },
+                {
+                  year: "2026 Q1",
+                  title: "Reinforcement Learning in Isaac Sim",
+                  description: "Training our robot using advanced RL techniques in Isaac Lab to handle unknown tasks and generalize across various scenarios.",
+                  status: "Planned"
+                },
+                {
+                  year: "2027 Q1",
+                  title: "Humanoid Robot Development",
+                  description: "Final phase focusing on the development and integration of humanoid robotics capabilities.",
                   status: "Planned"
                 }
               ].map((item, index) => (
@@ -83,8 +96,8 @@ export default function Roadmap() {
                       <div className="absolute w-4 h-4 bg-white rounded-full" />
                       <div className="absolute -bottom-8 left-1/2 transform -translate-x-1/2 whitespace-nowrap">
                         <span className={`px-3 py-1 rounded-full text-sm ${item.status === 'Completed' ? 'bg-green-100 text-green-700' :
-                            item.status === 'In Progress' ? 'bg-blue-100 text-blue-700' :
-                              'bg-gray-100 text-gray-700'
+                          item.status === 'In Progress' ? 'bg-blue-100 text-blue-700' :
+                            'bg-gray-100 text-gray-700'
                           }`}>
                           {item.status}
                         </span>

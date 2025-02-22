@@ -45,7 +45,7 @@ export default function Mission() {
                                 className="text-5xl font-bold mb-8"
                             >
                                 <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-purple-600">
-                                    Building the Future of Robotics
+                                    AI That Can See and Touch
                                 </span>
                             </motion.h2>
                             <motion.p
@@ -54,7 +54,7 @@ export default function Mission() {
                                 transition={{ duration: 0.8, delay: 0.2 }}
                                 className="text-xl mb-12 text-gray-600"
                             >
-                                We're developing advanced humanoid robots that combine cutting-edge AI with precise mechanical engineering to transform how humans and machines work together.
+                                We're taking AI beyond screens and giving it a physical form. Our robots combine smart AI 'brains' with a capable body, so they can move around and help with hands-on tasks in the real world.
                             </motion.p>
                         </motion.div>
                     </div>
@@ -73,7 +73,7 @@ export default function Mission() {
                             </div>
                             <h3 className="text-2xl font-semibold mb-4 text-gray-900">Advanced AI</h3>
                             <p className="text-gray-600">
-                                Powered by state-of-the-art machine learning and reinforcement learning algorithms
+                                Smart decision-making that helps our robots understand their surroundings and learn from experience
                             </p>
                         </motion.div>
 
@@ -108,7 +108,7 @@ export default function Mission() {
                             </div>
                             <h3 className="text-2xl font-semibold mb-4 text-gray-900">Human-Centric</h3>
                             <p className="text-gray-600">
-                                Designed to work safely and effectively alongside humans in real-world environments
+                                Built to be helpful, safe, and easy to work with in real-world settings
                             </p>
                         </motion.div>
                     </div>

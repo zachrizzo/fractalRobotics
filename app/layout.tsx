@@ -13,8 +13,8 @@ const inter = Inter({
 })
 
 export const metadata = {
-  title: "Fractal Robotics - Intelligent Home Automation",
-  description: "Revolutionizing your home with intelligent automation solutions",
+  title: "Fractal Robotics - Smart Robots That Help",
+  description: "Meet R1, our friendly robot helper that makes everyday tasks easier with advanced AI and safe physical capabilities.",
 }
 
 export default function RootLayout({

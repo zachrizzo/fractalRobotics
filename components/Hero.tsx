@@ -27,7 +27,7 @@ const Hero = () => {
                             transition={{ duration: 0.8, delay: 0.2 }}
                             className="inline-block p-2 px-4 bg-blue-50 rounded-full mb-6"
                         >
-                            <span className="text-blue-600 font-medium">Welcome to the future</span>
+                            <span className="text-blue-600 font-medium">We Give AI a Physical Form</span>
                         </motion.div>
                         <h1 className="text-4xl md:text-6xl font-bold text-gray-900 mb-6">
                             <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-purple-600">
@@ -36,11 +36,11 @@ const Hero = () => {
                         </h1>
                         <h2 className="text-2xl md:text-3xl font-semibold mb-8">
                             <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-purple-600">
-                                Building the Future of Robotics
+                                AI That Can Move and Help
                             </span>
                         </h2>
                         <p className="text-gray-600 text-lg mb-8 leading-relaxed">
-                            Meet R1, our advanced humanoid robot designed to seamlessly integrate into human environments and assist in everyday tasks.
+                            Meet R1, a robot that combines AI with a physical body. It can see, move, and help with real tasks - from picking up heavy boxes to organizing spaces. Think of it as AI that can actually reach out and lend a hand.
                         </p>
                         <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
                             <button className="px-8 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-full hover:from-blue-700 hover:to-purple-700 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5">

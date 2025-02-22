@@ -35,11 +35,11 @@ export interface BlogPost {
 }
 
 export async function getLatestBlogPosts(
-  limit: number = 3
+  postLimit: number = 3
 ): Promise<BlogPost[]> {
   try {
     const blogRef = collection(db, "blogPosts");
-    const q = query(blogRef, orderBy("createdAt", "desc"), limit(limit));
+    const q = query(blogRef, orderBy("createdAt", "desc"), limit(postLimit));
     const querySnapshot = await getDocs(q);
 
     return querySnapshot.docs.map(

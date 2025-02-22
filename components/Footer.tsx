@@ -56,8 +56,8 @@ const Footer = () => {
               </span>
             </Link>
             <p className="text-gray-600 mb-4 leading-relaxed">
-              Building the future of robotics with advanced AI and precision engineering.
-              Our solutions are transforming industries and improving lives.
+              Creating helpful robots that work alongside humans to make everyday tasks easier and safer.
+              Our mission is to bring practical robotic assistance to workplaces everywhere.
             </p>
             <div className="flex space-x-4">
               <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-blue-500">

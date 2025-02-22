@@ -70,12 +70,11 @@ export default function Benefits() {
                 >
                     <h2 className="text-5xl font-bold mb-6">
                         <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-purple-600">
-                            Transform Your Industry
+                            Helping Hands at Work
                         </span>
                     </h2>
                     <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-                        Our robotics platform brings unprecedented capabilities to various industries,
-                        combining advanced AI with precise mechanical engineering for real-world applications.
+                        Our robots bring AI into the physical world to help with real tasks. They work alongside people to make jobs easier, safer, and more efficient.
                     </p>
                 </motion.div>
 
@@ -111,10 +110,10 @@ export default function Benefits() {
                         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
                             <div className="lg:col-span-5">
                                 <h3 className="text-3xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-purple-600">
-                                    Ready to Transform Your Operations?
+                                    Want to See Our Robots in Action?
                                 </h3>
                                 <p className="text-lg text-gray-600 mb-6 leading-relaxed">
-                                    Join leading companies already benefiting from our advanced robotics solutions.
+                                    Book a live demo to see how our robots can help with your specific needs.
                                 </p>
                                 <button className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-8 py-3 rounded-full font-semibold hover:shadow-lg transition-all duration-300 transform hover:-translate-y-0.5">
                                     Schedule a Demo

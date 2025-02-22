@@ -4,10 +4,25 @@ import { motion } from "framer-motion"
 import { useState } from "react"
 import dynamic from "next/dynamic"
 
-// Dynamically import the RobotDog component with no SSR
+// Dynamically import the components with no SSR
 const RobotDog = dynamic(() => import("./3d-visualizations/RobotDog"), { ssr: false })
+const TrainingRobotics = dynamic(() => import("./TrainingRobotics"), { ssr: false })
 
 const technologies = [
+  {
+    title: "Reinforcement Learning with Isaac Sim",
+    description:
+      "Our advanced reinforcement learning pipeline leverages NVIDIA's Isaac Sim for photorealistic robot training. This enables us to train complex robotic behaviors in a physically accurate virtual environment before deploying to real robots, significantly accelerating development and ensuring safety.",
+    technicalDetails: [
+      "Physics-accurate simulation with PhysX 5.0",
+      "Photorealistic rendering using RTX Real-Time Ray Tracing",
+      "Integration with popular RL frameworks (PyTorch, RLlib)",
+      "Domain randomization for robust policy learning",
+      "Parallel training across multiple simulation instances",
+      "Seamless sim-to-real transfer learning"
+    ],
+    visualization: "trainingRobotics"  // Use our new visualization
+  },
   {
     title: "3D Mapping & SLAM",
     description:
@@ -19,7 +34,7 @@ const technologies = [
       "Frame rate: 90 FPS for depth streams",
       "Real-time point cloud generation",
     ],
-    visualization: "robotDog"  // New property to indicate which visualization to use
+    visualization: "robotDog"
   },
   {
     title: "RayLib Visualization",
@@ -71,6 +86,8 @@ export default function Technologies() {
     switch (type) {
       case "robotDog":
         return <RobotDog />
+      case "trainingRobotics":
+        return <TrainingRobotics />
       default:
         return null
     }

@@ -1,16 +1,14 @@
 'use client'
 
-import { trackVisitor } from "@/lib/visitorTracking"
-import { usePathname } from "next/navigation"
-import { useEffect } from "react"
-import type React from "react"
+import React, { useEffect } from 'react';
 
-export default function TrackingProvider({ children }: { children: React.ReactNode }) {
-    const pathname = usePathname();
-
+const TrackingProvider = ({ children }: { children: React.ReactNode }) => {
     useEffect(() => {
-        trackVisitor(pathname);
-    }, [pathname]);
+        // Initialize analytics here
+        // Example: Google Analytics, Mixpanel, etc.
+    }, []);
 
     return <>{children}</>;
-}
+};
+
+export default TrackingProvider;

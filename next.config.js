@@ -12,6 +12,19 @@ const nextConfig = {
         crypto: false,
       };
     }
+
+    // Add transpilation for undici
+    config.module.rules.push({
+      test: /node_modules\/undici/,
+      type: "javascript/auto",
+      use: {
+        loader: "babel-loader",
+        options: {
+          presets: ["@babel/preset-env"],
+        },
+      },
+    });
+
     return config
   },
 }

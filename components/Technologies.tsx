@@ -21,7 +21,7 @@ const technologies = [
       "Parallel training across multiple simulation instances",
       "Seamless sim-to-real transfer learning"
     ],
-    visualization: "trainingRobotics"  // Use our new visualization
+    visualization: "trainingRobotics"
   },
   {
     title: "3D Mapping & SLAM",
@@ -74,6 +74,34 @@ const technologies = [
       "Distance estimation accuracy: ±1cm",
     ],
     image: "/object-detection.jpg",
+  },
+  {
+    title: "Large Language Model Integration",
+    description:
+      "Our system leverages state-of-the-art Large Language Models to enable natural interaction and complex decision-making. The LLMs act as high-level planners, breaking down complex tasks into actionable steps and providing contextual understanding of the environment and user instructions.",
+    technicalDetails: [
+      "Integration with advanced LLMs (Claude, GPT-4)",
+      "Real-time task decomposition and planning",
+      "Natural language understanding and generation",
+      "Context-aware decision making",
+      "Multi-modal reasoning capabilities",
+      "Efficient prompt engineering and chain-of-thought"
+    ],
+    visualization: "trainingRobotics"
+  },
+  {
+    title: "Multi-Modal Vision System",
+    description:
+      "Our advanced vision system combines multiple neural architectures to provide comprehensive scene understanding. By integrating various vision models, we enable robust perception across different lighting conditions and environments, supporting tasks from navigation to manipulation.",
+    technicalDetails: [
+      "Real-time semantic segmentation",
+      "3D object detection and pose estimation",
+      "Visual SLAM for mapping and localization",
+      "Multi-camera fusion and depth integration",
+      "Scene graph generation and relationship inference",
+      "Transfer learning from pre-trained vision models"
+    ],
+    visualization: "trainingRobotics"
   },
 ]
 

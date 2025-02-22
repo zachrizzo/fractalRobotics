@@ -10,9 +10,10 @@ import {
   limit,
   Query,
   DocumentData,
+  addDoc,
+  serverTimestamp,
 } from "firebase/firestore";
 import { getStorage, FirebaseStorage } from "firebase/storage";
-import { getAnalytics, Analytics } from "firebase/analytics";
 
 const firebaseConfig = {
   apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
@@ -21,7 +22,6 @@ const firebaseConfig = {
   storageBucket: process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET,
   messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID,
   appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
-  measurementId: process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID,
 };
 
 // Initialize Firebase only if it hasn't been initialized already
@@ -29,14 +29,39 @@ let app;
 let auth: Auth | undefined;
 let db: Firestore | undefined;
 let storage: FirebaseStorage | undefined;
-let analytics: Analytics | undefined;
 
 if (typeof window !== "undefined") {
   app = getApps().length === 0 ? initializeApp(firebaseConfig) : getApps()[0];
   auth = getAuth(app);
   db = getFirestore(app);
   storage = getStorage(app);
-  analytics = getAnalytics(app);
+}
+
+// User tracking interface
+export interface UserVisit {
+  timestamp: Date;
+  page: string;
+  userAgent: string;
+  referrer: string;
+  ipAddress?: string;
+}
+
+// User tracking function
+export async function trackUserVisit(page: string): Promise<void> {
+  if (!db) return;
+
+  try {
+    const userVisit: Partial<UserVisit> = {
+      timestamp: serverTimestamp() as any,
+      page,
+      userAgent: window.navigator.userAgent,
+      referrer: document.referrer || "direct",
+    };
+
+    await addDoc(collection(db, "userVisits"), userVisit);
+  } catch (error) {
+    console.warn("Error tracking user visit:", error);
+  }
 }
 
 // Blog post interface
@@ -98,4 +123,4 @@ export async function getAllBlogPosts(): Promise<BlogPost[]> {
   }
 }
 
-export { app, auth, db, storage, analytics };
+export { app, auth, db, storage };
